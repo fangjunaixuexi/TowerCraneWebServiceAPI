@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.dajingzhu.mapper.MyMapper">
+ <select id="selectRunningDataId"  resultType="Integer" parameterType="Running_data">
+ SELECT device_id FROM running_data ORDER BY device_id DESC LIMIT 1 
+ </select>
+
+	<insert id="insertinsertRunningData" parameterType="java.util.List">
+		insert into running_data(device_sn,tower_cranemodel,tower_crance_name,
+		
+												monitoring_time,lifting_weight,tower_range,moment_percentage,
+												
+												rotation,height,wind_speed,dipangle,multiple_rate,alarm_state,on_line)
+												values
+												
+								<foreach collection="list" item="RunningData" index= ""  open="(" separator ="," close=")">	
+												#{RunningData.device_sn},#{RunningData.tower_cranemodel},#{RunningData.tower_crance_name},
+												
+												#{RunningData.monitoring_time},#{RunningData.lifting_weight},#{RunningData.tower_range},
+												
+												#{RunningData.moment_percentage},#{RunningData.rotation},#{RunningData.height},
+												
+												#{RunningData.wind_speed},#{RunningData.dipangle},#{RunningData.multiple_rate},
+												
+												#{RunningData.alarm_state},#{RunningData.on_line}
+								</foreach>			
+	</insert>
+	
+		<select id="selectWorkingCycleId" resultType="Integer">
+		SELECT device_id FROM working_cycle ORDER BY device_id
+		DESC LIMIT 1
+	</select>
+
+		<insert id="insertWorkingCycle" parameterType="java.util.List">
+		insert into working_cycle(device_sn,towercrance_name,lifting_time,
+
+		drop_time,maximum_payload,lifting_range,drop_amplitude,
+
+		max_range,lifting_height,drop_height,lifting_angle,drop_angle,lifting_windspeed,
+		
+		drop_windspeed,maximum_torque,maximum_torque_ratio)
+		
+		values
+
+		<foreach collection="list" item="WorkingData" index="" open="("
+			separator="," close=")">
+			#{WorkingData.device_sn},#{WorkingData.towercrance_name},#{WorkingData.lifting_time},
+
+			#{WorkingData.drop_time},#{WorkingData.maximum_payload},#{WorkingData.lifting_range},
+
+			#{WorkingData.drop_amplitude},#{WorkingData.max_range},#{WorkingData.lifting_height},
+
+			#{WorkingData.drop_height},#{WorkingData.lifting_angle},#{WorkingData.drop_angle},
+
+			#{WorkingData.lifting_windspeed},#{WorkingData.drop_windspeed},#{WorkingData.maximum_torque},
+			
+			#{WorkingData.maximum_torque_ratio}
+		</foreach>
+	</insert>
+ </mapper>

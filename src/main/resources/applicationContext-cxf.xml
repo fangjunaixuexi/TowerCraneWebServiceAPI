@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd
+       http://cxf.apache.org/jaxws 
+	   http://cxf.apache.org/schemas/jaxws.xsd">
+	<!-- SPRING扫描 -->
+	<context:component-scan base-package="com.dajingzhu"></context:component-scan>
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	<!-- 若WebService的实现类使用了Spring的AOP,且需要注入WebContext对象来获取上下文，则必须import“cxf-extension-jaxws.xml” -->
+	<import resource="classpath:META-INF/cxf/cxf-extension-jaxws.xml" />
+
+<!-- 
+	<jaxws:endpoint id="IMyWSService" implementorClass="com.dajingzhu.service.IMyService"
+		implementor="#iMyService" address="/IMyServiceImpl">
+	</jaxws:endpoint> -->
+
+</beans>
