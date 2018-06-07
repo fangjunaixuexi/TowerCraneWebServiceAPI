@@ -16,9 +16,8 @@
 	<!-- 若WebService的实现类使用了Spring的AOP,且需要注入WebContext对象来获取上下文，则必须import“cxf-extension-jaxws.xml” -->
 	<import resource="classpath:META-INF/cxf/cxf-extension-jaxws.xml" />
 
-<!-- 
-	<jaxws:endpoint id="IMyWSService" implementorClass="com.dajingzhu.service.IMyService"
+<jaxws:endpoint id="IMyWSService" implementorClass="com.dajingzhu.service.IMyService"
 		implementor="#iMyService" address="/IMyServiceImpl">
-	</jaxws:endpoint> -->
+	</jaxws:endpoint> 
 
 </beans>
