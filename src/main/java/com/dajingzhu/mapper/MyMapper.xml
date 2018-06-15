@@ -1,61 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="com.dajingzhu.mapper.MyMapper">
- <select id="selectRunningDataId"  resultType="Integer" parameterType="Running_data">
- SELECT device_id FROM running_data ORDER BY device_id DESC LIMIT 1 
- </select>
+<mapper namespace="com.dajingzhu.mapper.MyMapper">
+	<select id="selectRunningDataId" resultType="Integer">
+		SELECT running_id
+		FROM tower_cranerunning_data ORDER BY running_id DESC
+		LIMIT 1
+	</select>
 
-	<insert id="insertinsertRunningData" parameterType="java.util.List">
-		insert into running_data(device_sn,tower_cranemodel,tower_crance_name,
-		
-												monitoring_time,lifting_weight,tower_range,moment_percentage,
-												
-												rotation,height,wind_speed,dipangle,multiple_rate,alarm_state,on_line)
-												values
-												
-								<foreach collection="list" item="RunningData" index= ""  open="(" separator ="," close=")">	
-												#{RunningData.device_sn},#{RunningData.tower_cranemodel},#{RunningData.tower_crance_name},
-												
-												#{RunningData.monitoring_time},#{RunningData.lifting_weight},#{RunningData.tower_range},
-												
-												#{RunningData.moment_percentage},#{RunningData.rotation},#{RunningData.height},
-												
-												#{RunningData.wind_speed},#{RunningData.dipangle},#{RunningData.multiple_rate},
-												
-												#{RunningData.alarm_state},#{RunningData.on_line}
-								</foreach>			
+	<insert id="insertRunningData" parameterType="java.util.List">
+		insert into
+		tower_cranerunning_data(device_sn,tower_cranemodel,tower_crance_name,
+
+		monitoring_time,lifting_weight,tower_range,moment_percentage,
+
+		rotation,height,wind_speed,dipangle,multiple_rate,alarm_state,on_line)
+		values
+
+		<foreach collection="list" item="RunningData" index="" open="("
+			separator="," close=")">
+			#{RunningData.device_sn},#{RunningData.tower_cranemodel},#{RunningData.tower_crance_name},
+
+			#{RunningData.monitoring_time},#{RunningData.lifting_weight},#{RunningData.tower_range},
+
+			#{RunningData.moment_percentage},#{RunningData.rotation},#{RunningData.height},
+
+			#{RunningData.wind_speed},#{RunningData.dipangle},#{RunningData.multiple_rate},
+
+			#{RunningData.alarm_state},#{RunningData.on_line}
+		</foreach>
 	</insert>
-	
-		<select id="selectWorkingCycleId" resultType="Integer">
-		SELECT device_id FROM working_cycle ORDER BY device_id
+
+	<select id="selectWorkingCycleId" resultType="Integer">
+		SELECT working_id
+		FROM tower_craneworking_cycle ORDER BY working_id
 		DESC LIMIT 1
 	</select>
 
-		<insert id="insertWorkingCycle" parameterType="java.util.List">
-		insert into working_cycle(device_sn,towercrance_name,lifting_time,
 
-		drop_time,maximum_payload,lifting_range,drop_amplitude,
 
-		max_range,lifting_height,drop_height,lifting_angle,drop_angle,lifting_windspeed,
+	<insert id="insertPlaybackData" parameterType="Running_data">
+		insert into
+		playback(device_sn,tower_cranemodel,tower_crance_name,
+
+		monitoring_time,lifting_weight,tower_range,moment_percentage,
+
+		rotation,height,wind_speed,dipangle,multiple_rate,alarm_state,on_line,playbackid
+
+		) values(#{device_sn},#{tower_cranemodel},#{tower_crance_name},
+
+		#{monitoring_time},#{lifting_weight},#{tower_range},#{moment_percentage},
+
+		#{rotation},#{height},#{wind_speed},#{dipangle},#{multiple_rate},#{alarm_state},
+
+		#{on_line},#{playbackid})
+
+	</insert>
+
+	<select id="selectLifting_weight" resultType="Running_data">
+		SELECT * FROM
+		tower_cranerunning_data WHERE lifting_weight=0 ORDER BY
+		running_id
+		DESC
+		LIMIT 1
+	</select>
+
+	<select id="selectPlaybackList" parameterType="integer"
+		resultType="Playback">
+		select * from playback where playbackid=#{playbackid}
+	</select>
+
+	<select id="selectStartplayback" parameterType="integer"
+		resultType="Playback">
+		select * from playback where playbackid=#{playbackid} ORDER
+		BY id ASC LIMIT
+		1
+	</select>
+
+	<select id="selectEndplayback" parameterType="integer"
+		resultType="Playback">
+		select * from playback where playbackid=#{playbackid} ORDER
+		BY id desc LIMIT
+		1
+	</select>
+
+	<select id="selectPlayback" resultType="Playback">
+	select * from playback ORDER
+		BY id desc LIMIT
+		1
+	</select>
+	
+	<select id="selectMax_playload" resultType="Double" parameterType="Integer">
+	SELECT MAX(lifting_weight) FROM playback WHERE playbackid=#{playbackid}
+	</select>
+	
+		<select id="selectMax_amplitude" resultType="Double" parameterType="Integer">
+	SELECT MAX(tower_range) FROM playback WHERE playbackid=#{playbackid}
+	</select>
+	
+	<select id="selectMaximum_torque_ratio" resultType="Double"  parameterType="Integer">
+	SELECT MAX(moment_percentage) FROM playback WHERE playbackid=#{playbackid}
+	</select>
+	
+		<select id="selectMaximum_torque" resultType="Double"  parameterType="Integer">
+	SELECT MAX(tower_range*lifting_weight) FROM playback WHERE playbackid=#{playbackid}
+	</select>
+	
+	<insert id="insertTower_craneworking_cycle" parameterType="Working_cycle">
+	insert into
+		tower_craneworking_cycle(device_sn,towercrance_name,lifting_time,
+
+		drop_time,maximum_payload,lifting_range,max_amplitude,
+
+		drop_range,lifting_height,drop_height,lifting_angle,drop_angle,lifting_windspeed,
+
+		drop_windspeed,maximum_torque,maximum_torque_ratio,playbackid)
+
+		values(#{device_sn},#{towercrance_name},#{lifting_time},#{drop_time},
 		
-		drop_windspeed,maximum_torque,maximum_torque_ratio)
-		
+					#{maximum_payload},#{lifting_range},#{max_amplitude},#{drop_range},
+					
+					#{lifting_height},#{drop_height},#{lifting_angle},#{drop_angle},#{lifting_windspeed},
+					
+					#{drop_windspeed},#{maximum_torque},#{maximum_torque_ratio},#{playbackid})
+	</insert>
+	
+	<insert id="insertAlarmDataList" parameterType="java.util.List">
+			insert into
+		alarm_information(alarm_id,alarm_starttime,alarm_endtime,
+
+		alarm_type,device_sn)
 		values
 
-		<foreach collection="list" item="WorkingData" index="" open="("
+		<foreach collection="list" item="alarmData" index="" open="("
 			separator="," close=")">
-			#{WorkingData.device_sn},#{WorkingData.towercrance_name},#{WorkingData.lifting_time},
+			#{alarmData.alarm_id},#{alarmData.alarm_starttime},#{alarmData.alarm_endtime},
 
-			#{WorkingData.drop_time},#{WorkingData.maximum_payload},#{WorkingData.lifting_range},
-
-			#{WorkingData.drop_amplitude},#{WorkingData.max_range},#{WorkingData.lifting_height},
-
-			#{WorkingData.drop_height},#{WorkingData.lifting_angle},#{WorkingData.drop_angle},
-
-			#{WorkingData.lifting_windspeed},#{WorkingData.drop_windspeed},#{WorkingData.maximum_torque},
-			
-			#{WorkingData.maximum_torque_ratio}
+			#{alarmData.alarm_type},#{alarmData.device_sn}
 		</foreach>
 	</insert>
- </mapper>
+</mapper>

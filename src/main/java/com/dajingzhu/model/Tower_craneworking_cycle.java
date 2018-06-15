@@ -1,6 +1,6 @@
 package com.dajingzhu.model;
 
-public class Working_cycle {
+public class Tower_craneworking_cycle {
 
 	
 	 private int device_sn;
@@ -9,8 +9,8 @@ public class Working_cycle {
 	 private String drop_time;
 	 private double maximum_payload;
 	 private double lifting_range;
-	 private double drop_amplitude;
-	 private double max_range;
+	 private double max_amplitude;
+	 private double drop_range;
 	 private double lifting_height;
 	 private double drop_height;
 	 private double lifting_angle;
@@ -19,6 +19,13 @@ public class Working_cycle {
 	 private double drop_windspeed;
 	 private double maximum_torque;	 
 	 private double maximum_torque_ratio;
+	 private int playbackid;
+	public int getPlaybackid() {
+		return playbackid;
+	}
+	public void setPlaybackid(int playbackid) {
+		this.playbackid = playbackid;
+	}
 	public int getDevice_sn() {
 		return device_sn;
 	}
@@ -56,17 +63,18 @@ public class Working_cycle {
 	public void setLifting_range(double lifting_range) {
 		this.lifting_range = lifting_range;
 	}
-	public double getDrop_amplitude() {
-		return drop_amplitude;
+	
+	public double getMax_amplitude() {
+		return max_amplitude;
 	}
-	public void setDrop_amplitude(double drop_amplitude) {
-		this.drop_amplitude = drop_amplitude;
+	public void setMax_amplitude(double max_amplitude) {
+		this.max_amplitude = max_amplitude;
 	}
-	public double getMax_range() {
-		return max_range;
+	public double getDrop_range() {
+		return drop_range;
 	}
-	public void setMax_range(double max_range) {
-		this.max_range = max_range;
+	public void setDrop_range(double drop_range) {
+		this.drop_range = drop_range;
 	}
 	public double getLifting_height() {
 		return lifting_height;
@@ -118,14 +126,15 @@ public class Working_cycle {
 	}
 	@Override
 	public String toString() {
-		return "Woking_cycle [device_sn=" + device_sn + ", towercrance_name=" + towercrance_name + ", lifting_time="
-				+ lifting_time + ", drop_time=" + drop_time + ", maximum_payload=" + maximum_payload
-				+ ", lifting_range=" + lifting_range + ", drop_amplitude=" + drop_amplitude + ", max_range=" + max_range
+		return "Tower_craneworking_cycle [device_sn=" + device_sn + ", towercrance_name=" + towercrance_name
+				+ ", lifting_time=" + lifting_time + ", drop_time=" + drop_time + ", maximum_payload=" + maximum_payload
+				+ ", lifting_range=" + lifting_range + ", max_amplitude=" + max_amplitude + ", drop_range=" + drop_range
 				+ ", lifting_height=" + lifting_height + ", drop_height=" + drop_height + ", lifting_angle="
 				+ lifting_angle + ", drop_angle=" + drop_angle + ", lifting_windspeed=" + lifting_windspeed
 				+ ", drop_windspeed=" + drop_windspeed + ", maximum_torque=" + maximum_torque
 				+ ", maximum_torque_ratio=" + maximum_torque_ratio + "]";
-	}	 
+	}
+	
 
 
 }

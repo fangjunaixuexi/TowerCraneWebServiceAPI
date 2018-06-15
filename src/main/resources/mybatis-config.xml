@@ -6,7 +6,9 @@
 
 <!-- 起别名 -->
 	<typeAliases>
-	<typeAlias type="com.dajingzhu.model.Running_data" alias="Running_data"/>
+	<typeAlias type="com.dajingzhu.model.Tower_cranerunning_data" alias="Running_data"/>
+	<typeAlias type="com.dajingzhu.model.Playback" alias="Playback"/>
+	<typeAlias type="com.dajingzhu.model.Tower_craneworking_cycle" alias="Working_cycle"/>
 	</typeAliases> 
  
 </configuration>

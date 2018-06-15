@@ -1,8 +1,9 @@
 package com.dajingzhu.model;
 
 
-public class Running_data {
-
+public class Tower_cranerunning_data {
+	
+	private int running_id;
 	private int device_sn;
 	private String tower_cranemodel;
 	private String tower_crance_name;
@@ -17,6 +18,20 @@ public class Running_data {
 	private double multiple_rate;
 	private int alarm_state;
 	private int on_line;
+	private int playbackid;
+	
+	public int getRunning_id() {
+		return running_id;
+	}
+	public void setRunning_id(int running_id) {
+		this.running_id = running_id;
+	}
+	public int getPlaybackid() {
+		return playbackid;
+	}
+	public void setPlaybackid(int playbackid) {
+		this.playbackid = playbackid;
+	}
 	public int getDevice_sn() {
 		return device_sn;
 	}
